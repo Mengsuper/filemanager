@@ -12,6 +12,8 @@ let label = 'upload';
 
 async function handler(apiOptions, actions) {
   const {
+    showDialog,
+    hideDialog,
     navigateToDir,
     updateNotifications,
     getResource,
