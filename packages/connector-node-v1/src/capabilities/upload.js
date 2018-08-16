@@ -8,6 +8,9 @@ import icons from '../icons-svg';
 import getMess from '../translations';
 import { normalizeResource } from '../utils/common';
 
+import React from 'react';
+import DropZone from './uploadDropzone';
+
 let label = 'upload';
 
 async function handler(apiOptions, actions) {
@@ -73,81 +76,51 @@ async function handler(apiOptions, actions) {
     updateNotifications(newNotifications);
   };
 
-  // add a upload dialog
-  const rawDialogElement = React.createElement('h1', null, "Something pops up");
-
+  const resource = getResource();
+  async function getFiles(acceptedFiles, rejectedFiles) {
+    try {
+      //let file = await readLocalFile(true);
+      let file0 = acceptedFiles[0]; // only process one for now
+      onStart({ name: file0.name, size: file0.size });
+      let file = {
+        name: file0.name,
+        file: file0
+      }
+      const response = await api.uploadFileToId({ apiOptions, parentId: resource.id, file, onProgress });
+      const newResource = normalizeResource(response.body[0]);
+      const notifications = getNotifications();
+      const notification = notifUtils.getNotification(notifications, notificationId);
+      const notificationChildrenCount = notification.children.length;
+      let newNotifications;
+      if (notificationChildrenCount > 1) {
+        newNotifications = notifUtils.updateNotification(
+          notifications,
+          notificationId, {
+            children: notifUtils.removeChild(notification.children, notificationChildId)
+          }
+        );
+      } else {
+        newNotifications = notifUtils.removeNotification(notifications, notificationId);
+      }
+      updateNotifications(newNotifications);
+      if (prevResourceId === resource.id) {
+        navigateToDir(resource.id, newResource.id, false);
+      }
+    } catch (err) {
+      onFailError({
+        getNotifications,
+        label: getMessage(label),
+        notificationId,
+        updateNotifications
+      });
+      console.log(err)
+    }
+    hideDialog();
+  }
+  
+  const rawDialogElement = <DropZone getFiles={getFiles}/>
   showDialog(rawDialogElement);
-
-  /*
-  const resource = getResource();
-  try {
-    let file = await readLocalFile(true);
-    onStart({ name: file.name, size: file.file.size });
-    const response = await api.uploadFileToId({ apiOptions, parentId: resource.id, file, onProgress });
-    const newResource = normalizeResource(response.body[0]);
-    const notifications = getNotifications();
-    const notification = notifUtils.getNotification(notifications, notificationId);
-    const notificationChildrenCount = notification.children.length;
-    let newNotifications;
-    if (notificationChildrenCount > 1) {
-      newNotifications = notifUtils.updateNotification(
-        notifications,
-        notificationId, {
-          children: notifUtils.removeChild(notification.children, notificationChildId)
-        }
-      );
-    } else {
-      newNotifications = notifUtils.removeNotification(notifications, notificationId);
-    }
-    updateNotifications(newNotifications);
-    if (prevResourceId === resource.id) {
-      navigateToDir(resource.id, newResource.id, false);
-    }
-  } catch (err) {
-    onFailError({
-      getNotifications,
-      label: getMessage(label),
-      notificationId,
-      updateNotifications
-    });
-    console.log(err)
-  } */
-
-  /*
-  const resource = getResource();
-  try {
-    let file = await readLocalFile(true);
-    onStart({ name: file.name, size: file.file.size });
-    const response = await api.uploadFileToId({ apiOptions, parentId: resource.id, file, onProgress });
-    const newResource = normalizeResource(response.body[0]);
-    const notifications = getNotifications();
-    const notification = notifUtils.getNotification(notifications, notificationId);
-    const notificationChildrenCount = notification.children.length;
-    let newNotifications;
-    if (notificationChildrenCount > 1) {
-      newNotifications = notifUtils.updateNotification(
-        notifications,
-        notificationId, {
-          children: notifUtils.removeChild(notification.children, notificationChildId)
-        }
-      );
-    } else {
-      newNotifications = notifUtils.removeNotification(notifications, notificationId);
-    }
-    updateNotifications(newNotifications);
-    if (prevResourceId === resource.id) {
-      navigateToDir(resource.id, newResource.id, false);
-    }
-  } catch (err) {
-    onFailError({
-      getNotifications,
-      label: getMessage(label),
-      notificationId,
-      updateNotifications
-    });
-    console.log(err)
-  } 
-  */
+  
 }
 
 export default (apiOptions, actions) => {
