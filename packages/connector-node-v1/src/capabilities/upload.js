@@ -73,6 +73,12 @@ async function handler(apiOptions, actions) {
     updateNotifications(newNotifications);
   };
 
+  // add a upload dialog
+  const rawDialogElement = React.createElement('h1', null, "Something pops up");
+
+  showDialog(rawDialogElement);
+
+  /*
   const resource = getResource();
   try {
     let file = await readLocalFile(true);
@@ -105,7 +111,43 @@ async function handler(apiOptions, actions) {
       updateNotifications
     });
     console.log(err)
-  }
+  } */
+
+  /*
+  const resource = getResource();
+  try {
+    let file = await readLocalFile(true);
+    onStart({ name: file.name, size: file.file.size });
+    const response = await api.uploadFileToId({ apiOptions, parentId: resource.id, file, onProgress });
+    const newResource = normalizeResource(response.body[0]);
+    const notifications = getNotifications();
+    const notification = notifUtils.getNotification(notifications, notificationId);
+    const notificationChildrenCount = notification.children.length;
+    let newNotifications;
+    if (notificationChildrenCount > 1) {
+      newNotifications = notifUtils.updateNotification(
+        notifications,
+        notificationId, {
+          children: notifUtils.removeChild(notification.children, notificationChildId)
+        }
+      );
+    } else {
+      newNotifications = notifUtils.removeNotification(notifications, notificationId);
+    }
+    updateNotifications(newNotifications);
+    if (prevResourceId === resource.id) {
+      navigateToDir(resource.id, newResource.id, false);
+    }
+  } catch (err) {
+    onFailError({
+      getNotifications,
+      label: getMessage(label),
+      notificationId,
+      updateNotifications
+    });
+    console.log(err)
+  } 
+  */
 }
 
 export default (apiOptions, actions) => {
