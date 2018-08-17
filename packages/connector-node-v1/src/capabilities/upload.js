@@ -118,9 +118,9 @@ async function handler(apiOptions, actions) {
     hideDialog();
   }
   
-  const rawDialogElement = <DropZone getFiles={getFiles}/>
+  const rawDialogElement = <DropZone getFiles={getFiles} onHide={hideDialog}/>
   showDialog(rawDialogElement);
-  
+
 }
 
 export default (apiOptions, actions) => {

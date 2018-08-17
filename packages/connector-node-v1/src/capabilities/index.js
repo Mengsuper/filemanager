@@ -1,4 +1,5 @@
 import createFolder from './create-folder';
+import createText from './create-text';
 import deleteResource from './delete-resource';
 import download from './download';
 import upload from './upload';
@@ -7,6 +8,7 @@ import sort from './sort';
 
 const capabilities = [
   createFolder,
+  createText,
   rename,
   download,
   upload,

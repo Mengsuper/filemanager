@@ -6,6 +6,9 @@ export default class DropZone extends Component {
     onDrop(acceptedFiles, rejectedFiles) {
       this.props.getFiles(acceptedFiles, rejectedFiles);
     }
+    handHide() {
+      this.props.onHide();
+    }
     render() {
       var dropzonestyle= {
         width: 600,
@@ -17,21 +20,22 @@ export default class DropZone extends Component {
         margin: "auto"
       }
       return (
-        <section>
-          <div>
-            <Dropzone 
-              onDrop={this.onDrop.bind(this)}
-              multiple
-              style={dropzonestyle}
-            >
-              <div style={{margin: "auto", textAlign: "center"}}>
-                <Glyphicon glyph='cloud-upload' style={{color: "#5bc0de", fontSize:"40px", marginTop: "60px"}}/>
-                  <p style={{marginTop: "20px", fontSize: "20px"}}>Drag and drop Files to Upload </p>
-                  <Button bsStyle="info" style={{ marginTop: "5px", fontSize: "20px"}}> or select files to upload </Button>
-                </div>
-            </Dropzone>
-          </div>
-        </section>
+        <div>
+          <Button bsStyle="success" style={{alignSelf: 'flex-end', marginTop: '20px'}} onClick={this.handHide.bind(this)}>
+            <Glyphicon glyph='remove'/>
+          </Button>
+          <Dropzone 
+            onDrop={this.onDrop.bind(this)}
+            multiple
+            style={dropzonestyle}
+          >
+            <div style={{margin: "auto", textAlign: "center"}}>
+              <Glyphicon glyph='cloud-upload' style={{color: "#5bc0de", fontSize:"40px", marginTop: "60px"}}/>
+                <p style={{marginTop: "20px", fontSize: "20px"}}>Drag and drop Files to Upload </p>
+                <Button bsStyle="info" style={{ marginTop: "5px", fontSize: "20px"}}> or select files to upload </Button>
+              </div>
+          </Dropzone>
+        </div>
       );
     }
   }
