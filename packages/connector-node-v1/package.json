@@ -1,6 +1,6 @@
 {
   "name": "mengli-react-filemanager-connector-node-v1",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "@mengli/filemanager connector for NodeJS API v1",
   "main": "lib/index.js",
   "scripts": {
@@ -21,13 +21,19 @@
   ],
   "dependencies": {
     "babel-preset-react": "^6.24.1",
+    "emotion": "^9.2.6",
     "fecha": "2.3.1",
+    "immutable": "^3.8.2",
     "nanoid": "1.0.0",
     "range-parser": "1.2.0",
     "react": "^16.4.2",
     "react-bootstrap": "^0.32.1",
+    "react-dom": "^16.4.2",
     "react-dropzone": "^4.3.0",
+    "react-emotion": "^9.2.6",
     "sanitize-filename": "1.6.1",
+    "slate": "^0.37.7",
+    "slate-react": "^0.15.9",
     "superagent": "3.6.3"
   },
   "devDependencies": {

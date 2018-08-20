@@ -9,7 +9,7 @@ import getMess from '../translations';
 import { normalizeResource } from '../utils/common';
 
 import React from 'react';
-import DropZone from './uploadDropzone';
+import DropZone from './uploadDropzone/Dropzone';
 
 let label = 'upload';
 

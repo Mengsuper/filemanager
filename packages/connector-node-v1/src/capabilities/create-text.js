@@ -4,6 +4,9 @@ import onFailError from '../utils/onFailError';
 import icons from '../icons-svg';
 import getMess from '../translations';
 
+import React from 'react';
+import RichTextExample from './textEditor/TextEditor';
+
 let label = 'createText';
 
 function handler(apiOptions, actions) {
@@ -18,56 +21,9 @@ function handler(apiOptions, actions) {
 
   const getMessage = getMess.bind(null, apiOptions.locale);
 
-  const rawDialogElement = {
-    elementType: 'SetNameDialog',
-    elementProps: {
-      onHide: hideDialog,
-      onSubmit: async (folderName) => {
-        const resource = getResource();
-        try {
-          const resourceChildren = await api.getChildrenForId(apiOptions, { id: resource.id });
-          const alreadyExists = resourceChildren.some(({ name }) => name === folderName);
-
-          if (alreadyExists) {
-            return getMessage('fileExist', { name: folderName });
-          } else {
-            hideDialog();
-            const result = await api.createFolder(apiOptions, resource.id, folderName);
-            navigateToDir(resource.id, result.body.id, false);
-          }
-          return null
-        } catch (err) {
-          hideDialog();
-          onFailError({
-            getNotifications,
-            label: getMessage(label),
-            notificationId: label,
-            updateNotifications
-          });
-          console.log(err);
-          return null
-        }
-      },
-      onValidate: async (folderName) => {
-        if (!folderName) {
-          return getMessage('emptyName');
-        } else if (folderName === 'CON') {
-          return getMessage('doNotRespectBill');
-        } else if (folderName.length >= 255) {
-          return getMessage('tooLongFolderName');
-        } else if (folderName.trim() !== sanitizeFilename(folderName.trim())) {
-          return getMessage('folderNameNotAllowedCharacters');
-        }
-        return null;
-      },
-      inputLabelText: getMessage('textName'),
-      headerText: getMessage('createText'),
-      submitButtonText: getMessage('create'),
-      cancelButtonText: getMessage('cancel')
-    }
-  };
-
-  showDialog(rawDialogElement);
+  // may need put notification into editor ==> to do 
+  
+  showDialog(<RichTextExample onHide={hideDialog}/>);
 }
 
 export default (apiOptions, actions) => {
