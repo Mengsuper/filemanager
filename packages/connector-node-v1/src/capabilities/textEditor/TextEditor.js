@@ -84,9 +84,10 @@ class RichTextExample extends React.Component {
           {this.renderBlockButton('bulleted-list', 'format_list_bulleted')}
         </Toolbar>
         <Editor
+          className="editor"
           spellCheck
           autoFocus
-          placeholder="Enter some rich text..."
+          placeholder="Enter some text..."
           value={this.state.value}
           onChange={this.onChange}
           onKeyDown={this.onKeyDown}

@@ -31,7 +31,7 @@ export default (apiOptions, actions) => {
   const { getResource } = actions;
   return {
     id: label,
-    icon: { svg: icons.folder },
+    icon: { svg: icons.createNewText },
     label: localeLabel,
     shouldBeAvailable: (apiOptions) => {
       const resource = getResource();

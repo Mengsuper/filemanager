@@ -1,5 +1,7 @@
 .text-editor {
-  background: rgb(122, 112, 112);
+  border-radius: 4px;
+  background: rgba(29, 131, 214, 0.404);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 16px, rgba(0, 0, 0, 0.15) 0px 1px 4px;
   width: 500px;
   height: 500px;
   display: flex;
@@ -8,127 +10,12 @@
 }
 
 .text-editor-content {
-  padding: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.oc-fm--dialog3 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  flex-direction: column;
-  padding: 30px;
-  border-radius: 4px;
-  background: #123;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 16px, rgba(0, 0, 0, 0.15) 0px 1px 4px;
-}
-
-.oc-fm--dialog__content3 {
-  width: 320px;
-  max-width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.oc-fm--dialog__header {
-  text-align: left;
-  font-weight: bold;
-  font-size: 24px;
-  color: #424242;
-  margin-bottom: 12px;
-  user-select: none;
-}
-
-.oc-fm--dialog__message {
-  text-align: left;
-  font-size: 14px;
-  color: #424242;
-  margin-bottom: 12px;
-  user-select: none;
-  width: 100%;
-}
-
-.oc-fm--dialog__input-label {
-  text-align: left;
-  font-weight: bold;
-  font-size: 14px;
-  color: #424242;
-  margin-bottom: 4px;
-  user-select: none;
-}
-
-.oc-fm--dialog__button {
-  padding: 6px 24px;
-  border: 1px solid #ddd;
-  border-radius: 2px;
-  color: rgba(0, 0, 0, 0.72);
-  background-color: #fff;
-  font-size: 14px;
-  white-space: nowrap;
-  user-select: none;
-
-
-}
-
-.oc-fm--dialog__button--default {
-  color: rgba(0, 0, 0, 0.72);
-  background-color: #fff;
-}
-
-.oc-fm--dialog__button--primary {
-  color: #fff;
-  background-color: #2196F3;
-}
-
-.oc-fm--dialog__input {
-  color: rgba(0, 0, 0, 0.72);
-  font-size: 14px;
-  padding: 6px 12px;
-  border-radius: 2px;
-  border: 1px solid #ddd;
-  width: 100%;
-
-}
-
-.oc-fm--dialog__input--error {
-}
-
-.oc-fm--dialog__input--margin-bottom {
-  margin-bottom: 2px;
-}
-
-.oc-fm--dialog__horizontal-group {
-  display: flex;
-  width: 100%;
-  margin-top: 24px;
-  border-top: 1px solid #eee;
-  padding-top: 12px;
-  justify-content: space-between;
-}
-
-.oc-fm--dialog__horizontal-group > .oc-fm--dialog__button {
-  margin-right: 8px;
-
-}
-
-.oc-fm--dialog__horizontal-group--to-right {
-  justify-content: flex-end;
-}
-
-.oc-fm--dialog__validation-error {
-  font-size: 12px;
-  color: #e53935;
-  border-radius: 2px;
-  text-align: left;
-  font-weight: bold;
-  width: 100%;
-  opacity: 1;
-  transition: opacity 80ms ease-in-out;
-}
-
-.oc-fm--dialog__validation-error--hidden {
-  opacity: 0;
-  transition: opacity 80ms ease-in-out;
+.editor {
+  width: 400px;
+  height: 300px;
 }
