@@ -8,7 +8,8 @@ export function normalizeResource(resource) {
       name: resource.name,
       type: resource.type,
       size: resource.size,
-      parentId: resource.parentId ? resource.parentId : null
+      parentId: resource.parentId ? resource.parentId : null, 
+      subType: resource.subType
     };
   } else {
     return {};

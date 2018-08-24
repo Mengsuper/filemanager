@@ -23,7 +23,7 @@ function matchFileExtensions(filename, extensions) {
 export function getIcon(resource) {
   if (resource.type === 'dir') {
     // distinguish NewsItem and Collection (that is, different types of dir)
-    if (resource.subtype === 'newsItem') return {svg: icons.newsItem, fill: defaultFillColor};
+    if (resource.subType === 'Collection') return {svg: icons.collection, fill: defaultFillColor};
     return { svg: dirIcon, fill: defaultFillColor };
   } else if (matchFileExtensions(resource.name, soundFilesExtensions)) {
     return { svg: soundFileIcon, fill: `#e53935` };

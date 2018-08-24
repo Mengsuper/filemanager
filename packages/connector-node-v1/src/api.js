@@ -128,13 +128,14 @@ async function downloadResources({ apiOptions, resources, onProgress }) {
   return res.body;
 }
 
-async function createFolder(options, parentId, folderName) {
+async function createFolder(options, parentId, folderName, subType) {
   const route = `${options.apiRoot}/files`;
   const method = 'POST';
   const params = {
     parentId,
     name: folderName,
-    type: 'dir'
+    type: 'dir',
+    subType
   };
   return request(method, route).send(params)
 }

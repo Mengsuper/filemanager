@@ -32,7 +32,7 @@ function handler(apiOptions, actions) {
             return getMessage('fileExist', { name: folderName });
           } else {
             hideDialog();
-            const result = await api.createFolder(apiOptions, resource.id, folderName);
+            const result = await api.createFolder(apiOptions, resource.id, folderName, "Collection"); // add a new param 
             navigateToDir(resource.id, result.body.id, false);
           }
           return null
