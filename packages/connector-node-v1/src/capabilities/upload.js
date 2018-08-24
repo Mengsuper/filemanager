@@ -78,44 +78,45 @@ async function handler(apiOptions, actions) {
 
   const resource = getResource();
   async function getFiles(acceptedFiles, rejectedFiles) {
-    try {
-      //let file = await readLocalFile(true);
-      let file0 = acceptedFiles[0]; // only process one for now
-      onStart({ name: file0.name, size: file0.size });
-      let file = {
-        name: file0.name,
-        file: file0
+    // rejectedFiles need to be process
+    for (let acceptedFile of acceptedFiles) {
+      try {
+        onStart({ name: acceptedFile.name, size: acceptedFile.size });
+        let file = {
+          name: acceptedFile.name,
+          file: acceptedFile
+        }
+        const response = await api.uploadFileToId({ apiOptions, parentId: resource.id, file, onProgress });
+        const newResource = normalizeResource(response.body[0]);
+        const notifications = getNotifications();
+        const notification = notifUtils.getNotification(notifications, notificationId);
+        const notificationChildrenCount = notification.children.length;
+        let newNotifications;
+        if (notificationChildrenCount > 1) {
+          newNotifications = notifUtils.updateNotification(
+            notifications,
+            notificationId, {
+              children: notifUtils.removeChild(notification.children, notificationChildId)
+            }
+          );
+        } else {
+          newNotifications = notifUtils.removeNotification(notifications, notificationId);
+        }
+        updateNotifications(newNotifications);
+        if (prevResourceId === resource.id) {
+          navigateToDir(resource.id, newResource.id, false);
+        }
+      } catch (err) {
+        onFailError({
+          getNotifications,
+          label: getMessage(label),
+          notificationId,
+          updateNotifications
+        });
+        console.log(err)
       }
-      const response = await api.uploadFileToId({ apiOptions, parentId: resource.id, file, onProgress });
-      const newResource = normalizeResource(response.body[0]);
-      const notifications = getNotifications();
-      const notification = notifUtils.getNotification(notifications, notificationId);
-      const notificationChildrenCount = notification.children.length;
-      let newNotifications;
-      if (notificationChildrenCount > 1) {
-        newNotifications = notifUtils.updateNotification(
-          notifications,
-          notificationId, {
-            children: notifUtils.removeChild(notification.children, notificationChildId)
-          }
-        );
-      } else {
-        newNotifications = notifUtils.removeNotification(notifications, notificationId);
-      }
-      updateNotifications(newNotifications);
-      if (prevResourceId === resource.id) {
-        navigateToDir(resource.id, newResource.id, false);
-      }
-    } catch (err) {
-      onFailError({
-        getNotifications,
-        label: getMessage(label),
-        notificationId,
-        updateNotifications
-      });
-      console.log(err)
+      hideDialog();
     }
-    hideDialog();
   }
   
   const rawDialogElement = <DropZone getFiles={getFiles} onHide={hideDialog}/>
