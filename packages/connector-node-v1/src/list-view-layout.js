@@ -8,7 +8,7 @@ const MOBILE_WIDTH = 640;
 function formatSize(
   viewLayoutOptions, { cellData, columnData, columnIndex, dataKey, isScrolling, rowData, rowIndex }
 ) {
-  if (typeof cellData !== 'undefined' && viewLayoutOptions.humanReadableSize) {
+  if (typeof cellData !== 'undefined' && cellData != null && viewLayoutOptions.humanReadableSize) {
     return filesize(cellData);
   }
 
